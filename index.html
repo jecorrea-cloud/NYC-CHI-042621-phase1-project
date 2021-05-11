@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>FLAT-PIZZA Order your pizza!</title>
+    <link rel="stylesheet" type="text/css" href="./index.css">
+    <script defer type="text/javascript" src="./index.js"></script>
+  </head>
+  <body>
+    <div class="topnav">
+        <span id="Meatlovers">Meatlovers</span>
+        <span id="Custom">Customize your order</span>
+  </div>
+
+    <div id="container">
+      <form id="customer-info-form" data>
+        <p>Order information:</p>
+        <input id="name-input" type="text" placeholder="Name"></input>
+        <input id="lastname-input" type="text" placeholder="Last name"></input>
+        <input id="delivery-address-input" type="text" placeholder="Delivery address"></input>
+        <input id="payment-info-input" type="text" placeholder="Card number"></input>
+        <input id="crust-input" type="text" placeholder="Crust"></input>
+        <input id="sauce-input" type="text" placeholder="Sauce"></input>
+        <input id="first-topping" type="text" placeholder="First topping"></input>
+        <input id="second-topping" type="text" placeholder="Second topping"></input>
+        <input id="third-topping" type="text" placeholder="Third topping"></input>
+        <input id="beverage" type="text" placeholder="Beverage"></input>
+        <p>Extra cheese?</p>
+        <select id="extra-cheese"> <option id = "true-cheese" value=true>Yes</option> <option id = "false-cheese" value=false>No</option> </select>
+        <input id="submit" class="infobutton" type="submit">
+      </form>
+      <div id="order-container">
+      </div>
+    </div>
+  </body>
+</html>
