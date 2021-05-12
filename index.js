@@ -18,7 +18,7 @@ let beverageInput = form.beverage
 let selectCheese = form.querySelector("select#extra-cheese")
 
 
-function getTemplates() {
+
     fetch('http://localhost:3000/templates')
         .then((res) => res.json())
         .then((templatesArray) => {
@@ -42,10 +42,8 @@ function getTemplates() {
             )
         }
         )
-}
-getTemplates()
 
-function createOrder() {
+
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         let newTimestamp = generateTimestamp().toUTCString()
@@ -60,34 +58,32 @@ function createOrder() {
         let newThirdTopping = thirdToppingInput.value
         let newBeverage = beverageInput.value
         let newCheeseOpt = selectCheese.value
-        fetch("http://localhost:3000/pizzas", {
+        
+        fetch(`http://localhost:3000/pizzas`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(
-                timestamp = newTimestamp,
-                first_name = newName,
-                last_name = newLastname,
-                payment_info = newCard,
-                delivery_address = newDeliveryAddress,
-                crust = newCrust,
-                sauce = newSauce,
-                first_topping = newFirstTopping,
-                second_topping = newSecondTopping,
-                third_topping = newThirdTopping,
-                beverage = newBeverage,
-                extra_cheese = newCheeseOpt
-            ),
+                timestamp : newTimestamp,
+                first_name : newName,
+                last_name : newLastname,
+                payment_info : newCard,
+                delivery_address : newDeliveryAddress,
+                crust : newCrust,
+                sauce : newSauce,
+                first_topping : newFirstTopping,
+                second_topping : newSecondTopping,
+                third_topping : newThirdTopping,
+                beverage : newBeverage,
+                extra_cheese : newCheeseOpt
+            ), }).then(r => r.json()).then(arrPizzas => console.log('Hi-ho'))
         })
-        e.target.innerHTML = ``
-        showOrder()
-    })
-}
+        // e.target.innerHTML = ``
+        // showOrder()
+    
 
 function generateTimestamp(){
     let date = new Date()
     return date
 }
-
-createOrder()
