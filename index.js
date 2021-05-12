@@ -1,3 +1,4 @@
+//GLOBAL VARIABLES
 const topNav = document.querySelector("div.topnav")
 let meatLoversSpan = topNav.querySelector("span#meatlovers")
 let veggieSpan = topNav.querySelector("span#veggie")
@@ -16,6 +17,12 @@ let secondToppingInput = form.querySelector("input#second-topping")
 let thirdToppingInput = form.querySelector("input#third-topping")
 let beverageInput = form.beverage
 let selectCheese = form.querySelector("select#extra-cheese")
+
+const orderContainerDiv = document.querySelector("div#order-container")
+let editButton = document.createElement("BUTTON")
+editButton.innerHTML = `EDIT ORDER`
+let deleteButton = document.createElement("BUTTON")
+deleteButton.innerHTML = `CANCEL ORDER`
 
 
 
@@ -77,10 +84,75 @@ let selectCheese = form.querySelector("select#extra-cheese")
                 third_topping : newThirdTopping,
                 beverage : newBeverage,
                 extra_cheese : newCheeseOpt
-        }), }).then(r => r.json()).then(arrPizzas => console.log('Hi-ho'))
+        }), }).then(r => r.json())
+        .then(pizzaObj => {
+            getOrderDetails(pizzaObj)
+            }
+            )
+})
+            
+
+function getOrderDetails(pizzaObj){
+    fetch(`http://localhost:3000/pizzas/${pizzaObj.id}`)
+    .then(r=> r.json())
+    .then(pizzaObj => {
+        confirmedOrderDetailsUl = document.createElement("UL")
+        confirmedOrderDetailsUl.innerHTML = `
+        <li>CUSTOMER: ${pizzaObj.first_name} ${pizzaObj.last_name} </li>
+        <li>PIZZA</li>
+        <li>TOPPINGS: ${pizzaObj.first_topping} ${pizzaObj.second_topping} ${pizzaObj.third_topping} </li>
+        <li>BEVERAGE: ${pizzaObj.beverage} </li>
+        `
+
+        orderContainerDiv.append(confirmedOrderDetailsUl, editButton, deleteButton)
+
+        editButton.addEventListener("click", (e) =>{
+            console.log("HI")
+            let newEditForm = document.createElement("FORM")
+            let firstToppingEdit = document.createElement("INPUT")
+            let secondToppingEdit = document.createElement("INPUT")
+            let thirdToppingEdit = document.createElement("INPUT")
+            let beverageEdit = document.createElement("input")
+            firstToppingEdit.setAttribute("id", "firstEdit")
+            firstToppingEdit.setAttribute("type", "text")
+            firstToppingEdit.setAttribute("placeholder", "Edit first topping")
+            secondToppingEdit.setAttribute("id", "secondEdit")
+            secondToppingEdit.setAttribute("type", "text")
+            secondToppingEdit.setAttribute("placeholder", "Edit second topping")
+            thirdToppingEdit.setAttribute("id", "thirdEdit")
+            thirdToppingEdit.setAttribute("type", "text")
+            thirdToppingEdit.setAttribute("placeholder", "Edit third topping")
+            beverageEdit.setAttribute("id", "beverageEdit")
+            beverageEdit.setAttribute("type", "text")
+            beverageEdit.setAttribute("placeholder", "Edit your soda")
+        
+            newEditForm.append(firstToppingEdit, secondToppingEdit, thirdToppingEdit, beverageEdit)
+            orderContainerDiv.append(newEditForm)            
+        
+            /*
+                fetch(`http://localhost:3000/pizzas/${pizzaObj.id}`, {
+                    method: "PATCH",
+                    headers: {
+                    "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        first_topping : firstToppingEdit.value,
+                        second_topping : secondToppingEdit.value,
+                        third_topping : thirdToppingEdit.value,
+                        beverage : beverageEdit.value
+                    }),
+                    })
+                    .then((r) => r.json())
+                    .then((pizzaObj) => { getOrderDetails(pizzaObj) });
+            */
+        
         })
-        // e.target.innerHTML = ``
-        // showOrder()
+    })
+
+}
+       
+
+
     
 
 function generateTimestamp(){
