@@ -3,7 +3,6 @@ const topNav = document.querySelector("div.topnav")
     let veggieSpan = topNav.querySelector("span#veggie")
     let chickenAlfredoSpan = topNav.querySelector("span#chicken-alfredo")
     let buildYourOwnSpan = topNav.querySelector("span#build-your-own")
-
 const form = document.querySelector('form#customer-info-form')
     let nameInput = form.querySelector("input#name-input")
     let lastNameInput = form.querySelector("input#lastname-input")
@@ -14,10 +13,8 @@ const form = document.querySelector('form#customer-info-form')
     let firstToppingInput = form.querySelector("input#first-topping")
     let secondToppingInput = form.querySelector("input#second-topping")
     let thirdToppingInput = form.querySelector("input#third-topping")
-    let beverageInput = form.beverage 
+    let beverageInput = form.beverage
     let selectCheese = form.querySelector("select#extra-cheese")
-
-
 meatLoversSpan.addEventListener("click", () =>{
     fetch("http://localhost:3000/pizzas")
     .then(res => res.json())
@@ -31,7 +28,6 @@ meatLoversSpan.addEventListener("click", () =>{
         selectCheese.value = pizzasArray[0].extra_cheese
     })
 })
-
 veggieSpan.addEventListener("click", () =>{
     fetch("http://localhost:3000/pizzas")
     .then(res => res.json())
@@ -45,7 +41,6 @@ veggieSpan.addEventListener("click", () =>{
         selectCheese.value = pizzasArray[1].extra_cheese
     })
 })
-
 chickenAlfredoSpan.addEventListener("click", () =>{
     fetch("http://localhost:3000/pizzas")
     .then(res => res.json())
@@ -59,7 +54,6 @@ chickenAlfredoSpan.addEventListener("click", () =>{
         selectCheese.value = pizzasArray[2].extra_cheese
     })
 })
-
 buildYourOwnSpan.addEventListener("click", () =>{
     fetch("http://localhost:3000/pizzas")
     .then(res => res.json())
@@ -73,4 +67,3 @@ buildYourOwnSpan.addEventListener("click", () =>{
         selectCheese.value = pizzasArray[3].extra_cheese
     })
 })
-
