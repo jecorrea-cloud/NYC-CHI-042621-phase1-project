@@ -80,6 +80,8 @@ function createOrder() {
                 extra_cheese = newCheeseOpt
             ),
         })
+        .then(res => res.json)
+        .then()
         e.target.innerHTML = ``
         showOrder()
     })
