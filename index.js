@@ -64,7 +64,7 @@ let selectCheese = form.querySelector("select#extra-cheese")
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(
+            body: JSON.stringify({
                 timestamp : newTimestamp,
                 first_name : newName,
                 last_name : newLastname,
@@ -77,7 +77,7 @@ let selectCheese = form.querySelector("select#extra-cheese")
                 third_topping : newThirdTopping,
                 beverage : newBeverage,
                 extra_cheese : newCheeseOpt
-            ), }).then(r => r.json()).then(arrPizzas => console.log('Hi-ho'))
+        }), }).then(r => r.json()).then(arrPizzas => console.log('Hi-ho'))
         })
         // e.target.innerHTML = ``
         // showOrder()
