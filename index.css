@@ -1,0 +1,42 @@
+body {
+    background: red;
+  }
+
+  .topnav {
+    background-color: rgb(28, 143, 24);
+    overflow: hidden;
+  }
+
+  .topnav span {
+    float: center;
+    color: #f2f2f2;
+    text-align: center;
+    font-family: "copperplate";
+    padding: 22.5px 22.5px;
+    text-decoration: none;
+    font-size: 30px;
+    width: 14%;
+  }
+
+  #customer-info-form h2 {
+    text-align: center;
+    font-family: "copperplate";
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 40px;
+    color: white;
+  }
+
+  #customer-info-form p {
+    text-align: left;
+    font-family: "copperplate";
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+    color: white;
+  }
+
+  .topnav span:hover {
+    background-color: #ddd;
+    color: black;
+  }
