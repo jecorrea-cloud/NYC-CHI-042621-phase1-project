@@ -73,3 +73,4 @@ buildYourOwnSpan.addEventListener("click", () =>{
         selectCheese.value = pizzasArray[3].extra_cheese
     })
 })
+
