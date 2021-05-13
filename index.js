@@ -97,10 +97,11 @@ function getOrderDetails(pizzaObj) {
     fetch(`http://localhost:3000/pizzas/${pizzaObj.id}`)
         .then(r => r.json())
         .then(pizzaObj => {
+            orderContainerDiv.innerHTML = ''
             let confirmedOrderDetailsUl = document.createElement("UL")
             confirmedOrderDetailsUl.innerHTML = `
         <li>CUSTOMER: ${pizzaObj.first_name} ${pizzaObj.last_name} </li>
-        <li>PIZZA</li>
+        <li>PIZZA: ${pizzaObj.pizza_name} </li>
         <li>TOPPINGS: ${pizzaObj.first_topping} ${pizzaObj.second_topping} ${pizzaObj.third_topping} </li>
         <li>BEVERAGE: ${pizzaObj.beverage} </li>`
             let editFormContainerDiv = document.createElement('div')
@@ -164,7 +165,12 @@ function getOrderDetails(pizzaObj) {
                     method: "DELETE",
                 })
                     .then((r) => r.json())
-                    .then((pizzaObj) => console.log("Deleted"));
+                    .then(() => {
+                        let orderCancelConfirmation = document.createElement('h2')
+                        orderCancelConfirmation.innerText = "Your Order Has Been Cancelled"
+                        orderContainerDiv.innerHTML = ''
+                        orderContainerDiv.append(orderCancelConfirmation)
+                    });
             })
         })
 
