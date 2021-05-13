@@ -19,10 +19,6 @@ let selectCheese = form.querySelector("select#extra-cheese")
 
 const orderContainerDiv = document.querySelector("div#order-container")
 
-let deleteButton = document.createElement("BUTTON")
-deleteButton.innerText = `CANCEL ORDER`
-
-
 
 fetch('http://localhost:3000/templates')
     .then((res) => res.json())
@@ -107,12 +103,13 @@ function getOrderDetails(pizzaObj) {
         <li>PIZZA</li>
         <li>TOPPINGS: ${pizzaObj.first_topping} ${pizzaObj.second_topping} ${pizzaObj.third_topping} </li>
         <li>BEVERAGE: ${pizzaObj.beverage} </li>`
-        let editFormContainerDiv = document.createElement('div')
+            let editFormContainerDiv = document.createElement('div')
 
             let editButton = document.createElement("BUTTON")
             editButton.innerText = `EDIT ORDER`
 
-        
+            let deleteButton = document.createElement("BUTTON")
+            deleteButton.innerText = `CANCEL ORDER`
 
             orderContainerDiv.append(confirmedOrderDetailsUl, editButton, deleteButton, editFormContainerDiv)
 
@@ -143,37 +140,35 @@ function getOrderDetails(pizzaObj) {
                 newEditForm.append(firstToppingEdit, secondToppingEdit, thirdToppingEdit, beverageEdit, submitEditButton)
                 editFormContainerDiv.append(newEditForm)
 
-                /*
+                newEditForm.addEventListener("submit", (e) => {
+                    e.preventDefault()
                     fetch(`http://localhost:3000/pizzas/${pizzaObj.id}`, {
                         method: "PATCH",
                         headers: {
-                        "Content-Type": "application/json",
+                            "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
-                            first_topping : firstToppingEdit.value,
-                            second_topping : secondToppingEdit.value,
-                            third_topping : thirdToppingEdit.value,
-                            beverage : beverageEdit.value
+                            first_topping: firstToppingEdit.value,
+                            second_topping: secondToppingEdit.value,
+                            third_topping: thirdToppingEdit.value,
+                            beverage: beverageEdit.value
                         }),
-                        })
+                    })
                         .then((r) => r.json())
                         .then((pizzaObj) => { getOrderDetails(pizzaObj) });
-                */
+                })
 
+            })
+            deleteButton.addEventListener("click", (e) => {
+                fetch(`http://localhost:3000/pizzas/${pizzaObj.id}`, {
+                    method: "DELETE",
+                })
+                    .then((r) => r.json())
+                    .then((pizzaObj) => console.log("Deleted"));
             })
         })
 
 }
-
-
-
-
-
-function generateTimestamp() {
-    let date = new Date()
-    return date
-}
-
 
 
 
