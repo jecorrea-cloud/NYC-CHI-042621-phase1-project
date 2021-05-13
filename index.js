@@ -18,7 +18,7 @@ let beverageInput = form.beverage
 let selectCheese = form.querySelector("select#extra-cheese")
 
 const orderContainerDiv = document.querySelector("div#order-container")
-
+let newPizzaName
 
 fetch('http://localhost:3000/templates')
     .then((res) => res.json())
@@ -34,6 +34,7 @@ fetch('http://localhost:3000/templates')
                 fetch(`http://localhost:3000/templates/${templateObj.id}`)
                     .then(res => res.json())
                     .then((temp) => {
+                        newPizzaName = temp.pizza_name;
                         crustInput.value = temp.crust;
                         sauceInput.value = temp.sauce;
                         firstToppingInput.value = temp.first_topping;
@@ -77,6 +78,7 @@ form.addEventListener('submit', (e) => {
             last_name: newLastname,
             payment_info: newCard,
             delivery_address: newDeliveryAddress,
+            pizza_name: newPizzaName,
             crust: newCrust,
             sauce: newSauce,
             first_topping: newFirstTopping,
