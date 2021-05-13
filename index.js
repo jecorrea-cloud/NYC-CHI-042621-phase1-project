@@ -18,10 +18,9 @@ let beverageInput = form.beverage
 let selectCheese = form.querySelector("select#extra-cheese")
 
 const orderContainerDiv = document.querySelector("div#order-container")
-let editButton = document.createElement("BUTTON")
-editButton.innerHTML = `EDIT ORDER`
+
 let deleteButton = document.createElement("BUTTON")
-deleteButton.innerHTML = `CANCEL ORDER`
+deleteButton.innerText = `CANCEL ORDER`
 
 
 
@@ -36,7 +35,7 @@ fetch('http://localhost:3000/templates')
 
             spanElement.addEventListener('click', () => {
 
-                fetch(`http://localhost:3000/pizzas/${templateObj.id}`)
+                fetch(`http://localhost:3000/templates/${templateObj.id}`)
                     .then(res => res.json())
                     .then((temp) => {
                         crustInput.value = temp.crust;
@@ -98,22 +97,27 @@ form.addEventListener('submit', (e) => {
 })
 
 
-function getOrderDetails(templateObj) {
-    fetch(`http://localhost:3000/pizzas/${templateObj.id}`)
+function getOrderDetails(pizzaObj) {
+    fetch(`http://localhost:3000/pizzas/${pizzaObj.id}`)
         .then(r => r.json())
-        .then(templateObj => {
-            confirmedOrderDetailsUl = document.createElement("UL")
+        .then(pizzaObj => {
+            let confirmedOrderDetailsUl = document.createElement("UL")
             confirmedOrderDetailsUl.innerHTML = `
-        <li>CUSTOMER: ${templateObj.first_name} ${templateObj.last_name} </li>
+        <li>CUSTOMER: ${pizzaObj.first_name} ${pizzaObj.last_name} </li>
         <li>PIZZA</li>
-        <li>TOPPINGS: ${templateObj.first_topping} ${templateObj.second_topping} ${templateObj.third_topping} </li>
-        <li>BEVERAGE: ${templateObj.beverage} </li>
-        `
+        <li>TOPPINGS: ${pizzaObj.first_topping} ${pizzaObj.second_topping} ${pizzaObj.third_topping} </li>
+        <li>BEVERAGE: ${pizzaObj.beverage} </li>`
+        let editFormContainerDiv = document.createElement('div')
 
-            orderContainerDiv.append(confirmedOrderDetailsUl, editButton, deleteButton)
+            let editButton = document.createElement("BUTTON")
+            editButton.innerText = `EDIT ORDER`
+
+        
+
+            orderContainerDiv.append(confirmedOrderDetailsUl, editButton, deleteButton, editFormContainerDiv)
 
             editButton.addEventListener("click", (e) => {
-                console.log("HI")
+                editFormContainerDiv.innerHTML = ''
                 let newEditForm = document.createElement("FORM")
                 let firstToppingEdit = document.createElement("INPUT")
                 let secondToppingEdit = document.createElement("INPUT")
@@ -137,7 +141,7 @@ function getOrderDetails(templateObj) {
                 submitEditButton.setAttribute("type", "submit")
 
                 newEditForm.append(firstToppingEdit, secondToppingEdit, thirdToppingEdit, beverageEdit, submitEditButton)
-                orderContainerDiv.append(newEditForm)
+                editFormContainerDiv.append(newEditForm)
 
                 /*
                     fetch(`http://localhost:3000/pizzas/${pizzaObj.id}`, {
